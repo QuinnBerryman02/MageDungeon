@@ -1,7 +1,7 @@
 (Theoretical means not directly represented in game)
 
 Procedural Algorithm 2D 1 Floor
-    Room Layout
+    Theoretical Rooms and Passage Layout
     -Generate randomly sized rectangles within a certain radius (Rooms)
     -Use an algotithm to seperate the Rooms so that they aren't overlapping
     -Find the Delaunay Triangulation between center points of Rooms 
@@ -9,11 +9,14 @@ Procedural Algorithm 2D 1 Floor
     -Passages = MST + Some amount from (DT - MST)
     -Determine spawn and boss
 
-    Metroidvaniation
+    Metroidvania Complexity
     -Randomly add blank Impediments to Passages
+        Need to have multiple implentations of Impediment ready for use in a corridors
     -Randomly select rooms to be divided into Subrooms
     -Divide rooms internally into Subrooms and IntraPassages
+        Need to determine several ways to split a room into a subroom
     -Give these IntraPassages blank Impediments
+        Need to determine what kind of Impediments can be used in each case
     -Use an algotithm to decide what each Impediment should be, and how to open each one
     -Test if floor is completable
     -Modify based on cost factors (Time/Length, Variety, Shortcuts?)
@@ -57,3 +60,39 @@ Procedural Algorithm 2D 1 Floor
 -Status is based on some function of the following
     -Devices turned on
     -Keys in players possesion
+
+    PassageImpediments
+-Take place in small corridors
+-Examples
+    -Locked Gate
+    -Hidden Wall
+    -Gate unlocked from other side
+    -Kickdown ladder
+    -Ledge that crumbles leaving a hole you need to dash across
+
+    RoomImpediments
+-Take place on a room scale
+-Examples
+    -Large gap too big to jump across
+    -Large Gate
+    -lower and upper level accessed by a Kickdown ladder
+    -Island across a gap need four keys place in a device to access a bridge 
+
+    Device Positioning Problem
+If an Impediment requires just possesion of a key the logic is simple.
+This is because the means to unlock the Impediment and the Impediment are
+located in the same place.
+
+However, If the Impediment requires a device to be on to open it, things get complicated
+Where do you put this device for example? 
+It is simple if the device is the Impediment, for example a Gate but this isnt always the case
+In principle a device can be anywhere, from the next room to behind the boss, to another area!
+So what do you do?
+A) Restrict a device to being in the same room as the Impediment so it is reasonable to find/evaluate
+B) Allow a device to be anywhere and deal with the huge complexity
+C) Do A but only allow some devices to be elsewhere (Very Special Impediments like boss doors etc)
+
+I think the best course of action is to
+-Restrict PassageImpediments to only have devices in preset relative locations
+-Restrict NormalRoomImpediments to only have devices in the same rooms or preset relative locations
+-Have special rules for SpecialRoomImpediments

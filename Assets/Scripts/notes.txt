@@ -1,0 +1,59 @@
+(Theoretical means not directly represented in game)
+
+Procedural Algorithm 2D 1 Floor
+    Room Layout
+    -Generate randomly sized rectangles within a certain radius (Rooms)
+    -Use an algotithm to seperate the Rooms so that they aren't overlapping
+    -Find the Delaunay Triangulation between center points of Rooms 
+    -Find Minium Spanning Tree between center points of Rooms
+    -Passages = MST + Some amount from (DT - MST)
+    -Determine spawn and boss
+
+    Metroidvaniation
+    -Randomly add blank Impediments to Passages
+    -Randomly select rooms to be divided into Subrooms
+    -Divide rooms internally into Subrooms and IntraPassages
+    -Give these IntraPassages blank Impediments
+    -Use an algotithm to decide what each Impediment should be, and how to open each one
+    -Test if floor is completable
+    -Modify based on cost factors (Time/Length, Variety, Shortcuts?)
+
+    Convert from Theoretical to Real
+    -Working from a tiled map
+    -Use A* to pathfind Coridors for Passages
+    -Decide where to place Impediments on each passage
+    -Place IntraPassage Impediments in rooms
+    -Convert from tiled map to 3D render
+
+    Passages = Theoretical class
+-Link from a portal to another portal
+-Can have Impediments
+
+    Rooms = Theoretical class
+-Have a list of Portals (entry/exits)
+-Can be broken up into Subrooms and IntraPassages
+
+    Subrooms = Extends Room
+-Used to break up a room into different areas
+-Connected to other sub rooms with IntraPassages
+
+    IntraPassages = Extends Passage
+-Link from one sub room to another
+-Can have special types of Impediments
+  
+    Impediments = Theoretical class 
+-Has a location (Passage / IntraPassage)
+-Have two states
+    -Closed
+    -Open
+-Many different types
+    -Locked doors
+    -Gaps to big to jump
+    -Blocks of Ice needed to be melted
+    -One way ledges
+    -etc
+-While closed traversal can be (A -> B) || (B -> A) || (NONE)
+-While open traversal can be (A -> B) || (B -> A) || (A <-> B)
+-Status is based on some function of the following
+    -Devices turned on
+    -Keys in players possesion
